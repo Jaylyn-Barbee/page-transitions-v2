@@ -58,6 +58,13 @@ export class AppIndex extends LitElement {
             action: async () => {
               await import('./pages/beyond-bounds.js');
             },
+          },
+          {
+            path: '/album-details/:name/:index',
+            component: 'album-details',
+            action: async () => {
+              await import('./pages/album-details.js');
+            },
           }
         ],
       } as any,

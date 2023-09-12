@@ -7,11 +7,6 @@
   --font-family: sans-serif;
 }
 
-::view-transition-old(top-level),
-::view-transition-new(top-level) {
-  animation-duration: .25s;
-}
-
 html, body {
   font-family: var(--font-family);
   padding: 0;
@@ -36,4 +31,17 @@ html, body {
   }
 }
 
+::view-transition-old(top-level),
+::view-transition-new(top-level) {
+  animation-duration: .25s;
+}
 
+::view-transition-old(container-transform),
+::view-transition-new(container-transform) {
+  animation: none;
+  mix-blend-mode: normal;
+}
+
+::view-transition-image-pair(container-transform) {
+  isolation: none;
+}
