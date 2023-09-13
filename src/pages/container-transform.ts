@@ -60,19 +60,28 @@ export class ContainerTransform extends LitElement {
 
   }
 
- handleAlbumClick(name: string, index: number){
+ async handleAlbumClick(name: string, index: number){
     let album: HTMLElement = this.shadowRoot!.querySelector(`[data-name="${name}"]`)!
 
     if ("startViewTransition" in document) {
       //@ts-ignore
       album!.style.viewTransitionName = 'container-transform';
-
       // @ts-ignore
+      await document.startViewTransition();
+
+      Router.go(`/album-details/${name}/${index}`);
+
+      setTimeout(() => {
+        // @ts-ignore
+        album!.style.viewTransitionName = '';
+      }, 500);
+
+      /* // @ts-ignore
       document.startViewTransition(() => {
         //@ts-ignore
         album!.style.viewTransitionName = '';
         Router.go(`/album-details/${name}/${index}`);
-      });
+      }); */
     }
   }
 

@@ -6,6 +6,14 @@ import './pages/app-home';
 import './components/header';
 import './styles/global.css';
 
+/* const transitionMap: { [id: string] : string; } = {
+  "/": "top-level",
+  "/container-transform": "top-level",
+  "/forward-page": "forward",
+  "/backward-page": "backward",
+  "/beyond-bounds": "top-level",
+} */
+
 @customElement('app-index')
 export class AppIndex extends LitElement {
   static get styles() {
@@ -25,7 +33,23 @@ export class AppIndex extends LitElement {
     super();
   }
 
+  /* connectedCallback(): void {
+    super.connectedCallback();
+    window.addEventListener('vaadin-router-location-changed', (event) => {
+      // This event will be triggered whenever the route changes
+      const newLocation = event.detail.location;
+      console.log('Page is changing to:', newLocation);
+      // You can perform your custom actions here
+
+      let routerOutlet = this.shadowRoot!.getElementById("routerOutlet");
+
+      //@ts-ignore
+      routerOutlet!.style.viewTransitionName = transitionMap[newLocation.pathname]
+    });
+  } */
+
   firstUpdated() {
+
     // this method is a lifecycle even in lit
     // for more info check out the lit docs https://lit.dev/docs/components/lifecycle/
 
@@ -39,10 +63,17 @@ export class AppIndex extends LitElement {
         children: [
           { path: '', component: 'app-home' },
           {
-            path: '/forward-and-backward',
-            component: 'forward-and-backward',
+            path: '/forward-page',
+            component: 'forward-page',
             action: async () => {
-              await import('./pages/forward-and-backward.js');
+              await import('./pages/forward-page.js');
+            },
+          },
+          {
+            path: '/backward-page',
+            component: 'backward-page',
+            action: async () => {
+              await import('./pages/backward-page.js');
             },
           },
           {
