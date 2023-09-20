@@ -66,15 +66,21 @@ export class ContainerTransform extends LitElement {
     if ("startViewTransition" in document) {
       //@ts-ignore
       album!.style.viewTransitionName = 'container-transform';
+      console.log("transition started")
       // @ts-ignore
-      await document.startViewTransition();
+      const transition = document.startViewTransition();
 
       Router.go(`/album-details/${name}/${index}`);
 
-      setTimeout(() => {
+      await transition.finished;
+      console.log("transition finished")
+      // @ts-ignore
+      album!.style.viewTransitionName = '';
+
+      /* setTimeout(() => {
         // @ts-ignore
         album!.style.viewTransitionName = '';
-      }, 500);
+      }, 500); */
 
       /* // @ts-ignore
       document.startViewTransition(() => {

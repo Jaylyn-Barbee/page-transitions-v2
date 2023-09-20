@@ -10,6 +10,9 @@ export class BackwardPage extends LitElement {
     return [
       styles,
       css`
+        :host {
+          view-transiton-name: forward;
+        }
         .red {
           background-color: red;
           height: 90vh;
@@ -29,14 +32,26 @@ export class BackwardPage extends LitElement {
 
   }
 
-  handleBackward(){
+  async handleBackward(){
+    let host = this.shadowRoot!.host;
+
     if ("startViewTransition" in document) {
-      return (document as any).startViewTransition(() => {
-        Router.go("/forward-page");
-      });
-    }
-    else {
-      Router.go("/forward-page");
+      //@ts-ignore
+      host!.style.viewTransitionName = 'backward';
+      console.log("transition started")
+      // @ts-ignore
+      const transiton = document.startViewTransition();
+
+      Router.go(`/forward-page`);
+
+      await transiton.finished;
+
+      console.log(transiton)
+      console.log("transition finished")
+      // @ts-ignore
+      host!.style.viewTransitionName = '';
+    } else {
+      Router.go(`/forward-page`);
     }
   }
 

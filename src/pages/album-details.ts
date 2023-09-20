@@ -23,10 +23,11 @@ export class AlbumDetails extends LitElement implements BeforeEnterObserver {
         .wrapper {
           height: 90vh;
           width: 100vw;
-          display: flex;
-          flex-direction: column;
+          display: grid;
+          grid-template-rows: 1fr 1fr;
           align-items: center;
           justify-content: center;
+          place-items: center;
         }
         .container {
           max-width: 400px;
@@ -59,6 +60,14 @@ export class AlbumDetails extends LitElement implements BeforeEnterObserver {
           border-bottom-left-radius: 10px;
         }
 
+        .reveal-container {
+          overflow: hidden;
+          height: 0;
+          transition: height 1s ease;
+          place-self: baseline;
+          justify-self: center;
+        }
+
       `
     ];
   }
@@ -67,15 +76,18 @@ export class AlbumDetails extends LitElement implements BeforeEnterObserver {
 
   async onBeforeEnter(location: RouterLocation) {
     this.paramsData = location.params as unknown as Params;
-    console.log(this.paramsData);
   }
 
   constructor() {
     super();
   }
 
-  async firstUpdated() {
+  firstUpdated() {
+    const container = this.shadowRoot!.querySelector('.reveal-container')! as HTMLElement;
 
+    const contentHeight = container.querySelector('ol')!.offsetHeight;
+
+    container.style.height = contentHeight + "px";
   }
 
   render() {
@@ -85,13 +97,15 @@ export class AlbumDetails extends LitElement implements BeforeEnterObserver {
             <img class="album-art" src=${"/assets/" + albums[this.paramsData!.index].cover} alt="Album Cover for ${albums[this.paramsData!.index].name}" />
             <p class="album-name">${albums[this.paramsData!.index].name} by ${albums[this.paramsData!.index].artist}</p>
         </div>
-        <ol start="1">
-            ${tracklists[this.paramsData!.name].map((song: string) =>
-                html`
-                    <li>${song}</li>
-                `
-            )}
-        </ol>
+        <div class="reveal-container">
+          <ol start="1">
+              ${tracklists[this.paramsData!.name].map((song: string) =>
+                  html`
+                      <li>${song}</li>
+                  `
+              )}
+          </ol>
+        </div>
       </div>
       <top-level-nav></top-level-nav>
     `;
