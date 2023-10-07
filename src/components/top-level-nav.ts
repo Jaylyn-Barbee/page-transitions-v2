@@ -6,8 +6,7 @@ import { Router } from '@vaadin/router';
 const pageMap: { [id: string] : string; } = {
     "Home": "/",
     "Container Transform": "/container-transform",
-    "Forward and Backward": "/forward-page",
-    "Beyond Screen Bounds": "/beyond-bounds"
+    "Forward and Backward": "/forward-page"
 }
 
 @customElement('top-level-nav')

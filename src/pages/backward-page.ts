@@ -10,9 +10,6 @@ export class BackwardPage extends LitElement {
     return [
       styles,
       css`
-        :host {
-          view-transiton-name: forward;
-        }
         .red {
           background-color: red;
           height: 90vh;

@@ -46,46 +46,36 @@ html, body {
   isolation: none;
 }
 
-@keyframes fade-in {
-  from { opacity: 0; }
-}
-
-@keyframes fade-out {
-  to { opacity: 0; }
-}
-
 @keyframes slide-from-right {
-  from { transform: translateX(30px); }
+  from { transform: translateX(100%); }
 }
 
 @keyframes slide-to-left {
-  to { transform: translateX(-30px); }
+  to { transform: translateX(-100%); }
 }
 
 @keyframes slide-to-right {
-  to { transform: translateX(30px); }
+  to { transform: translateX(100%); }
 }
 
 @keyframes slide-from-left {
-  from { transform: translateX(-30px); }
+  from { transform: translateX(-100%); }
 }
 
 ::view-transition-old(forward) {
-  animation: 200ms cubic-bezier(0.4, 0, 1, 1) both fade-out,
-    600ms cubic-bezier(0.4, 0, 0.2, 1) both slide-to-left;
+  animation: 600ms cubic-bezier(0.4, 0, 0.2, 1) both slide-to-left;
 }
 
 ::view-transition-new(forward) {
-  animation: 400ms cubic-bezier(0, 0, 0.2, 1) 200ms both fade-in,
-    600ms cubic-bezier(0.4, 0, 0.2, 1) both slide-from-right;
+  animation: 600ms cubic-bezier(0.4, 0, 0.2, 1) both slide-from-right;
 }
 
 ::view-transition-old(backward) {
-  animation-name: fade-out, slide-to-right;
+  animation: 600ms cubic-bezier(0.4, 0, 0.2, 1) both slide-to-right;
 }
 
 ::view-transition-new(backward) {
-  animation-name: fade-in, slide-from-left;
+  animation: 600ms cubic-bezier(0.4, 0, 0.2, 1) both slide-from-left;
 }
 
 /* Apply styles when motion is not preferred (animations/transitions disabled) */
